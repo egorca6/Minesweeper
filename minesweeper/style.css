@@ -1,0 +1,29 @@
+h1{
+  text-align: center;
+  padding-bottom: 100px;
+}
+
+.wrapper{
+  margin: 0 auto;
+  width: 500px;
+  height: 600px;
+  background-color: aquamarine;
+}
+
+.wrapper-top{
+width: auto;
+height: 125px;
+background-color: rgb(187, 207, 203);
+}
+
+.wrapper-field{
+  width: auto;
+  height: 475px;
+  background-color: rgb(95, 97, 96);
+  display: grid;
+  grid-template-columns: repeat(10, 50px);
+}
+.button{
+  height: 50px;
+  background-color: black;
+}

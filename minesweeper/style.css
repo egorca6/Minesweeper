@@ -1,29 +1,34 @@
-h1{
+h1 {
   text-align: center;
   padding-bottom: 100px;
 }
 
-.wrapper{
+.wrapper {
   margin: 0 auto;
   width: 500px;
   height: 600px;
   background-color: aquamarine;
 }
 
-.wrapper-top{
+.wrapper-top {
 width: auto;
 height: 125px;
 background-color: rgb(187, 207, 203);
 }
 
-.wrapper-field{
+.wrapper-field {
   width: auto;
-  height: 475px;
+  height: 500px;
   background-color: rgb(95, 97, 96);
   display: grid;
   grid-template-columns: repeat(10, 50px);
 }
-.button{
+button {
   height: 50px;
-  background-color: black;
+  /* background-color: black; */
+  font-size: 24px;
+}
+
+.on {
+  background-color:  red; 
 }

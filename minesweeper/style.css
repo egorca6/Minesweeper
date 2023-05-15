@@ -5,15 +5,19 @@ h1 {
 
 .wrapper {
   margin: 0 auto;
-  width: 500px;
-  height: 600px;
+  max-width: 500px;
+  max-height: 600px;
   background-color: aquamarine;
 }
 
 .wrapper-top {
-width: auto;
+max-width: auto;
 height: 125px;
 background-color: rgb(187, 207, 203);
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+align-content: center;
 }
 
 .wrapper-field {
@@ -31,4 +35,56 @@ button {
 
 .on {
   background-color:  red; 
+}
+
+.flag {
+  background-color: aquamarine;
+}
+
+.mines {
+  width: 130px;
+  height: 100px;
+  background-color: antiquewhite;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-game {
+  width: 130px;
+  height: 100px;
+  font-size: 24px;
+  background-color: antiquewhite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time {
+  width: 130px;
+  height: 100px;
+  font-size: 24px;
+  background-color: antiquewhite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 500px) {
+
+  .wrapper-field{
+    height: 300px;
+    grid-template-columns: repeat(10, 30px);
+  }
+
+  button {
+    height: 30px;
+  }
+
+  .wrapper {
+    max-width: 300px;
+    max-height: 400px;
+   
+  }
 }

@@ -5,6 +5,13 @@ body.append(main);
 const title = document.createElement('h1');
 title.textContent = 'Сапер';
 main.append(title);
+const navbar = document.createElement('div');
+navbar.classList.add('navbar');
+main.append(navbar);
+let myCliks = document.createElement('div');
+myCliks.classList.add('myCliks');
+myCliks.innerText = 'Всего кликов = ';
+navbar.append(myCliks);
 const wrapper = document.createElement('div');
 wrapper.classList.add('wrapper');
 main.append(wrapper);
@@ -28,18 +35,20 @@ wrapperTop.append(time);
 function startGame(width, height, bombsCount) {
   const buttonCount = width * height;
   wrapperField.innerHTML = '<button> </button>'.repeat(buttonCount);
-  const bombs = [...Array(buttonCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
+  let bombs = [...Array(buttonCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
   const cells = [...wrapperField.children];
   let closedCells = buttonCount;
   let flagsCount = bombsCount;
   mines.innerHTML = flagsCount;
-
+  let clickCount = 0;
   const startTime = new Date();
   const x = setInterval(() => {
     const newTime = new Date();
     const z = Math.floor((newTime - startTime) / 1000);
     time.innerHTML = z;
   }, 1000);
+
+  let firstClick = true;
 
   function isValid(row, column) {
     return row >= 0
@@ -76,7 +85,7 @@ function startGame(width, height, bombsCount) {
     cell.disabled = true;
     closedCells -= 1;
     if (closedCells <= bombsCount) {
-      alert('Hooray! You found all mines in ## seconds and N moves!');
+      alert(`Hooray! You found all mines in ${time.innerHTML} seconds and ${clickCount} moves!`);
     }
     if (isBomb(row, column)) {
       cell.classList.add('on');
@@ -84,6 +93,21 @@ function startGame(width, height, bombsCount) {
       clearInterval(x);
       return;
     } if (count !== 0) {
+      if (count === 1) {
+        cell.classList.add('one');
+      }
+      if (count === 2) {
+        cell.classList.add('two');
+      }
+      if (count === 3) {
+        cell.classList.add('three');
+      }
+      if (count === 4) {
+        cell.classList.add('four');
+      }
+      if (count === 5) {
+        cell.classList.add('five');
+      }
       cell.innerHTML = count;
       return;
     }
@@ -93,12 +117,22 @@ function startGame(width, height, bombsCount) {
       }
     }
   }
-
+  // новоя херня
   wrapperField.addEventListener('click', (event) => {
     if (event.target.tagName === 'BUTTON') {
       const index = cells.indexOf(event.target);
       const column = index % width;
       const row = Math.floor(index / width);
+      while (firstClick === true && getCount(row, column) !== 0) {
+        bombs = [...Array(buttonCount).keys()].sort(() => Math.random()
+            - 0.5).slice(0, bombsCount);
+      }
+      firstClick = false;
+      console.log(firstClick);
+      console.log(bombs);
+      console.log('getCount = ', getCount(row, column));
+      clickCount += 1;
+      myCliks.innerText = clickCount;
       open(row, column);
       // if (isBomb(row, column)) {
       //   wrapperField.removeEventListener('click', () => {
@@ -126,12 +160,10 @@ function startGame(width, height, bombsCount) {
   });
 
   newGame.addEventListener('click', () => {
-    startGame(10, 10, 10);
+    startGame(width, height, bombsCount);
     clearInterval(x);
   });
-  console.log('Бомбы ', bombs);
-    // setInterval(time.innerHTML, 1000);
-    // time.innerHTML = startTime.getSeconds();
+  // console.log('Бомбы ', bombs);
 }
 
 startGame(10, 10, 10);

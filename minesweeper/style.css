@@ -1,6 +1,6 @@
 h1 {
   text-align: center;
-  padding-bottom: 100px;
+  padding-bottom: 10px;
 }
 
 .wrapper {
@@ -71,6 +71,34 @@ button {
   justify-content: center;
 }
 
+.navbar{
+  padding-bottom: 20px;
+  margin: 0 auto;
+  max-width: 900px;
+  height: 100px;
+background-color: aqua;
+}
+
+.one {
+  color: blue;
+}
+
+.two {
+  color: green;
+}
+
+.three {
+  color: red;
+}
+
+.four {
+  color: black;
+}
+
+.five {
+  color: gold;
+}
+
 @media only screen and (max-width: 500px) {
 
   .wrapper-field{
@@ -86,5 +114,9 @@ button {
     max-width: 300px;
     max-height: 400px;
    
+  }
+
+  .navbar{
+    padding-bottom: 20px;
   }
 }

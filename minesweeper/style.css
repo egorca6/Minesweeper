@@ -34,7 +34,9 @@ button {
 }
 
 .on {
-  background-color:  red; 
+ background-image: url(assets/img/Bomb.png);
+ background-position: center;
+ background-size: cover;
 }
 
 .flag {
@@ -76,7 +78,23 @@ button {
   margin: 0 auto;
   max-width: 900px;
   height: 100px;
-background-color: aqua;
+  background-color: aqua;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.sound{
+  width: 70px;
+  height: 70px;
+  background-image: url(./assets/img/play3.png);
+  background-position: center;
+  background-size: cover;
+}
+
+.sound-stop {
+  background-image: url(./assets/img/stop.png);
 }
 
 .one {
@@ -118,5 +136,20 @@ background-color: aqua;
 
   .navbar{
     padding-bottom: 20px;
+  }
+
+  .mines {
+  width: 100px;
+  height: 70px;
+  }
+
+  .time{
+    width: 100px;
+    height: 70px;
+  }
+
+  .new-game{
+    width: 100px;
+    height: 70px;
   }
 }

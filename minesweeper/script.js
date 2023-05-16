@@ -8,10 +8,25 @@ main.append(title);
 const navbar = document.createElement('div');
 navbar.classList.add('navbar');
 main.append(navbar);
-let myCliks = document.createElement('div');
+const myCliks = document.createElement('div');
 myCliks.classList.add('myCliks');
 myCliks.innerText = 'Всего кликов = ';
 navbar.append(myCliks);
+const soundButton = document.createElement('button');
+soundButton.innerHTML = `<audio id="clickSound" src="./assets/sounds/background_music2.mp3">
+</audio>`;
+soundButton.classList.add('sound');
+navbar.append(soundButton);
+const soundWin = document.createElement('audio');
+soundWin.src = './assets/sounds/winGame.mp3';
+navbar.append(soundWin);
+const sound = document.querySelector('#clickSound');
+const goodClick = document.createElement('audio');
+goodClick.src = './assets/sounds/goodClick2.mp3';
+navbar.append(goodClick);
+const badClick = document.createElement('audio');
+badClick.src = './assets/sounds/mine.mp3';
+navbar.append(badClick);
 const wrapper = document.createElement('div');
 wrapper.classList.add('wrapper');
 main.append(wrapper);
@@ -85,10 +100,19 @@ function startGame(width, height, bombsCount) {
     cell.disabled = true;
     closedCells -= 1;
     if (closedCells <= bombsCount) {
+      if (soundButton.classList.contains('sound-stop')) {
+        soundWin.play();
+        soundWin.volume = 0.5;
+      }
       alert(`Hooray! You found all mines in ${time.innerHTML} seconds and ${clickCount} moves!`);
+      clearInterval(x);
     }
     if (isBomb(row, column)) {
       cell.classList.add('on');
+      if (soundButton.classList.contains('sound-stop')) {
+        badClick.play();
+        badClick.volume = 0.5;
+      }
       alert('Game over. Try again');
       clearInterval(x);
       return;
@@ -109,6 +133,10 @@ function startGame(width, height, bombsCount) {
         cell.classList.add('five');
       }
       cell.innerHTML = count;
+      if (soundButton.classList.contains('sound-stop')) {
+        goodClick.play();
+        goodClick.volume = 0.3;
+      }
       return;
     }
     for (let i = -1; i <= 1; i += 1) {
@@ -159,11 +187,33 @@ function startGame(width, height, bombsCount) {
     }
   });
 
+  function music() {
+    soundButton.classList.toggle('sound-stop');
+    console.log('contains ', soundButton.classList.contains('sound-stop'));
+    if (soundButton.classList.contains('sound-stop')) {
+      sound.volume = 0.25;
+      sound.play();
+      console.log('pause =', sound.paused);
+    } else {
+      sound.pause();
+      console.log('играет ?');
+    }
+  }
+
+  // console.log('Бомбы ', bombs);
+  soundButton.addEventListener('click', () => {
+    music();
+  });
+
   newGame.addEventListener('click', () => {
     startGame(width, height, bombsCount);
     clearInterval(x);
+    soundButton.addEventListener('click', () => {
+      music();
+    });
+    // soundButton.className = 'sound-stop';
+    // music();
   });
-  // console.log('Бомбы ', bombs);
 }
 
 startGame(10, 10, 10);

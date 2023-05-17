@@ -46,6 +46,10 @@ newGame.innerHTML = 'New Game';
 const time = document.createElement('div');
 time.classList.add('time');
 wrapperTop.append(time);
+const result = document.createElement('div');
+result.classList.add('result');
+wrapper.append(result);
+const results = [];
 
 function startGame(width, height, bombsCount) {
   const buttonCount = width * height;
@@ -90,6 +94,29 @@ function startGame(width, height, bombsCount) {
     return count;
   }
 
+  function showResult(row, column) {
+    if (isBomb(row, column)) {
+      results.push(`lose за ходов = ${clickCount}`);
+      if (results.length > 10) {
+        results.shift();
+      }
+      localStorage.setItem('result', JSON.stringify(results));
+    } else {
+      results.push(`win за ходов = ${clickCount}`);
+      if (results.length > 10) {
+        results.shift();
+      }
+      localStorage.setItem('result', JSON.stringify(results));
+    }
+    const myResult = JSON.parse(localStorage.getItem('result'));
+    result.innerHTML = '';
+    myResult.forEach((res) => {
+      const resultElement = document.createElement('div');
+      resultElement.textContent = res;
+      result.append(resultElement);
+    });
+  }
+
   function open(row, column) {
     if (!isValid(row, column)) return;
 
@@ -106,6 +133,7 @@ function startGame(width, height, bombsCount) {
       }
       alert(`Hooray! You found all mines in ${time.innerHTML} seconds and ${clickCount} moves!`);
       clearInterval(x);
+      showResult(row, column);
     }
     if (isBomb(row, column)) {
       cell.classList.add('on');
@@ -115,6 +143,7 @@ function startGame(width, height, bombsCount) {
       }
       alert('Game over. Try again');
       clearInterval(x);
+      showResult(row, column);
       return;
     } if (count !== 0) {
       if (count === 1) {
@@ -145,6 +174,7 @@ function startGame(width, height, bombsCount) {
       }
     }
   }
+// localStorage.removeItem('now');
   // новоя херня
   wrapperField.addEventListener('click', (event) => {
     if (event.target.tagName === 'BUTTON') {
@@ -156,9 +186,7 @@ function startGame(width, height, bombsCount) {
             - 0.5).slice(0, bombsCount);
       }
       firstClick = false;
-      console.log(firstClick);
       console.log(bombs);
-      console.log('getCount = ', getCount(row, column));
       clickCount += 1;
       myCliks.innerText = clickCount;
       open(row, column);

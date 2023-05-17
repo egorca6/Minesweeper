@@ -117,6 +117,14 @@ button {
   color: gold;
 }
 
+.result {
+  background-color:  gold;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
 @media only screen and (max-width: 500px) {
 
   .wrapper-field{

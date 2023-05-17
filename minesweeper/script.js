@@ -1,4 +1,4 @@
-const { body } = document;
+const body = document.querySelector('body');
 const main = document.createElement('main');
 main.classList.add('main');
 body.append(main);
@@ -12,6 +12,15 @@ const myCliks = document.createElement('div');
 myCliks.classList.add('myCliks');
 myCliks.innerText = 'Всего кликов = ';
 navbar.append(myCliks);
+const level = document.createElement('div');
+level.classList.add('level');
+navbar.append(level);
+const minesNumber = document.createElement('div');
+minesNumber.classList.add('mines-number');
+navbar.append(minesNumber);
+const darkLight = document.createElement('button');
+darkLight.classList.add('dark-light');
+navbar.append(darkLight);
 const soundButton = document.createElement('button');
 soundButton.innerHTML = `<audio id="clickSound" src="./assets/sounds/background_music2.mp3">
 </audio>`;
@@ -50,10 +59,11 @@ const result = document.createElement('div');
 result.classList.add('result');
 wrapper.append(result);
 const results = [];
+let gameOver = false;
 
 function startGame(width, height, bombsCount) {
   const buttonCount = width * height;
-  wrapperField.innerHTML = '<button> </button>'.repeat(buttonCount);
+  wrapperField.innerHTML = '<button class = "cell"> </button>'.repeat(buttonCount);
   let bombs = [...Array(buttonCount).keys()].sort(() => Math.random() - 0.5).slice(0, bombsCount);
   const cells = [...wrapperField.children];
   let closedCells = buttonCount;
@@ -95,6 +105,7 @@ function startGame(width, height, bombsCount) {
   }
 
   function showResult(row, column) {
+    gameOver = true;
     if (isBomb(row, column)) {
       results.push(`lose за ходов = ${clickCount}`);
       if (results.length > 10) {
@@ -174,9 +185,9 @@ function startGame(width, height, bombsCount) {
       }
     }
   }
-// localStorage.removeItem('now');
-  // новоя херня
-  wrapperField.addEventListener('click', (event) => {
+
+  function clickEvent(event) {
+    if (gameOver || event.target.tagName !== 'BUTTON') return;
     if (event.target.tagName === 'BUTTON') {
       const index = cells.indexOf(event.target);
       const column = index % width;
@@ -186,16 +197,14 @@ function startGame(width, height, bombsCount) {
             - 0.5).slice(0, bombsCount);
       }
       firstClick = false;
-      console.log(bombs);
+      // console.log(bombs);
       clickCount += 1;
       myCliks.innerText = clickCount;
       open(row, column);
-      // if (isBomb(row, column)) {
-      //   wrapperField.removeEventListener('click', () => {
-      //   });
-      // }
     }
-  });
+  }
+
+  wrapperField.addEventListener('click', clickEvent);
 
   wrapperField.addEventListener('contextmenu', (event) => {
     if (event.target.tagName === 'BUTTON') {
@@ -228,20 +237,35 @@ function startGame(width, height, bombsCount) {
     }
   }
 
-  // console.log('Бомбы ', bombs);
   soundButton.addEventListener('click', () => {
     music();
   });
 
-  newGame.addEventListener('click', () => {
+  const newGameClick = () => {
+    gameOver = false;
+    wrapperField.removeEventListener('click', clickEvent);
+    newGame.removeEventListener('click', newGameClick);
     startGame(width, height, bombsCount);
     clearInterval(x);
     soundButton.addEventListener('click', () => {
       music();
     });
-    // soundButton.className = 'sound-stop';
-    // music();
+  };
+
+  newGame.addEventListener('click', newGameClick);
+
+  const buttons = wrapperField.querySelectorAll('button');
+
+  darkLight.addEventListener('click', () => {
+    body.classList.toggle('black');
+    buttons.forEach((button) => {
+      button.classList.toggle('black');
+    });
+    // buttons.classList.toggle('black');
   });
+
+  minesNumber.innerText = bombsCount;
+  console.log('bombsCount', bombsCount);
 }
 
 startGame(10, 10, 10);

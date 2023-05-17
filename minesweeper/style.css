@@ -93,6 +93,26 @@ button {
   background-size: cover;
 }
 
+.level {
+  background-color: azure;
+  width: 70px;
+  height: 70px;
+}
+
+.mines-number {
+  background-color: azure;
+  width: 70px;
+  height: 70px;
+}
+
+.dark-light {
+  background-image: url(./assets/img/dark-light.png);
+  background-position: center;
+  background-size: cover;
+  width: 80px;
+  height: 70px;
+}
+
 .sound-stop {
   background-image: url(./assets/img/stop.png);
 }
@@ -123,6 +143,10 @@ button {
   height: 300px;
   display: flex;
   flex-direction: column;
+}
+
+.black {
+  background-color: rgb(68, 69, 69);
 }
 
 @media only screen and (max-width: 500px) {

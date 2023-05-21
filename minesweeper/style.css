@@ -1,3 +1,11 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
 h1 {
   text-align: center;
   padding-bottom: 10px;
@@ -27,6 +35,37 @@ align-content: center;
   display: grid;
   grid-template-columns: repeat(10, 50px);
 }
+
+.wrapper-field-medium {
+  width: auto;
+  height: 750px;
+  background-color: rgb(95, 97, 96);
+  display: grid;
+  grid-template-columns: repeat(15, 50px);
+}
+
+.wrapper-medium {
+  margin: 0 auto;
+  max-width: 750px;
+  max-height: 850px;
+  background-color: aquamarine;
+}
+
+.wrapper-field-hard {
+  width: auto;
+  height: 1250px;
+  background-color: rgb(95, 97, 96);
+  display: grid;
+  grid-template-columns: repeat(25, 50px);
+}
+
+.wrapper-hard {
+  margin: 0 auto;
+  max-width: 1250px;
+  max-height: 1350px;
+  background-color: aquamarine;
+}
+
 button {
   height: 50px;
   /* background-color: black; */
@@ -74,7 +113,7 @@ button {
 }
 
 .navbar{
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
   margin: 0 auto;
   max-width: 900px;
   height: 100px;
@@ -92,17 +131,51 @@ button {
   background-position: center;
   background-size: cover;
 }
+.level-div {
+display: flex;
+flex-wrap: wrap;
+flex-direction: column;
+row-gap: 5px;
+}
 
 .level {
-  background-color: azure;
-  width: 70px;
-  height: 70px;
+  background-image: url(./assets/img/1-в-кружке.png);
+  background-position: center;
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+.level1 {
+  background-image: url(./assets/img/1-в-кружке.png);
+  background-position: center;
+  background-size: cover;
+}
+
+.level2 {
+  background-image: url(./assets/img/2-в-кружке.png);
+  background-position: center;
+  background-size: cover;
+}
+
+.level3 {
+  background-image: url(./assets/img/3-в-кружке.png);
+  background-position: center;
+  background-size: cover;
 }
 
 .mines-number {
   background-color: azure;
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 30px;
+}
+
+.change-mines {
+  width: 50px;
+  height: 50px;
+  background-image: url(./assets/img/apply.png);
+  background-position: center;
+  background-size: cover;
 }
 
 .dark-light {
@@ -137,10 +210,19 @@ button {
   color: gold;
 }
 
+.result-hide {
+  display: none;
+}
+
 .result {
-  background-color:  gold;
-  width: 300px;
-  height: 300px;
+  display: block;
+  /* display: inline-block;
+  background-color: aqua;
+  width: 70px;
+  height: 70px; */
+  background-color: rgb(187, 207, 203);
+  width: 210px;
+  height: 210px;
   display: flex;
   flex-direction: column;
 }
@@ -149,15 +231,72 @@ button {
   background-color: rgb(68, 69, 69);
 }
 
-@media only screen and (max-width: 500px) {
+.save-button {
+  background-color: aqua;
+  width: 70px;
+  height: 70px;
+}
 
-  .wrapper-field{
+.save-button:first-child {
+  margin-left:  100px;
+}
+
+.button-medium {
+  height: 50px;
+}
+
+.footer {
+  height: 100px;
+  /* background-color: black; */
+  margin-top: 50px;
+}
+
+@media only screen and (max-width: 1267px) {
+
+  .wrapper-field-hard{
+    height: 500px;
+    grid-template-columns: repeat(25, 20px);
+  }
+
+  .wrapper-hard  {
+    max-width: 500px;
+  }
+
+  .button-hard {
+    height: 20px;
+    font-size: 80%;
+  }
+
+}
+
+@media only screen and (max-width: 800px) {
+
+  .wrapper-field-medium{
+    height: 450px;
+    grid-template-columns: repeat(15, 30px);
+  }
+
+  .wrapper-medium  {
+    max-width: 450px;
+  }
+
+  .button-medium {
+    height: 30px;
+    font-size: 80%;
+  }
+
+}
+
+@media only screen and (max-width: 550px) {
+
+  .wrapper-field {
     height: 300px;
     grid-template-columns: repeat(10, 30px);
   }
 
   button {
     height: 30px;
+    font-size: 80%; 
   }
 
   .wrapper {
